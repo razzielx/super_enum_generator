@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      super_enum_generator:
+        enabled: true
+        generate_for:
+        - example/*
+
+builders:
+  super_enum_generator:
+    target: ":super_enum_generator"
+    import: "package:super_enum_generator/super_enum_generator.dart"
+    builder_factories: ["superEnumGeneratorFactory"]
+    build_extensions: {".dart": [".super.dart"]}
+    auto_apply: dependents
+    build_to: source
+    required_inputs: [".g.part"]
