@@ -13,7 +13,8 @@ class ClassGenerator {
 
   ClassGenerator(this.element);
 
-  Iterable<FieldElement> get _fields => element.fields.skip(2);
+  Iterable<FieldElement> get _fields =>
+      element.fields.getRange(0, element.fields.length - 1);
 
   bool get _isNamespaceGeneric => _fields.any(type_processor.isGeneric);
 
