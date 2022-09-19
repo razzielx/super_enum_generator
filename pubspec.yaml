@@ -6,15 +6,16 @@ homepage: https://github.com/ride4sun/super_enum
 environment:
   sdk: ">=2.15.0 <3.0.0"
 
+publish_to: none
+
 dependencies:
   # Specify a specific version or a version constraint
   # for "super_enum" before publishing the package.
   #  super_enum: ^0.5.0
-
   super_enum:
     git:
-      url: https://github.com/ride4sun/super_enum.git
-      ref: "0.7.0"
+      url: https://github.com/razzielx/super_enum.git
+      ref: "0.7.3"
 
   source_gen: ^1.1.1
   analyzer: ^4.3.0

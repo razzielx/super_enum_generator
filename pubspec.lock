@@ -404,9 +404,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.7.0"
-      resolved-ref: bdbfffd441aebbf972b12e600e6a808555bdf6a7
-      url: "https://github.com/ride4sun/super_enum.git"
+      ref: "0.7.3"
+      resolved-ref: d750d10b3379ac043904f5b7cac3949ccb01b7a3
+      url: "https://github.com/razzielx/super_enum.git"
     source: git
     version: "0.7.0"
   term_glyph:

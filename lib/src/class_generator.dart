@@ -20,7 +20,7 @@ class ClassGenerator {
   final Set<String?> wrapper = {};
 
   String generate(DartFormatter _dartFmt) {
-    if (!element.isDartCoreEnum || !element.isPrivate) {
+    if (!(element is EnumElement) || !element.isPrivate) {
       throw InvalidGenerationSourceError(
           '${element.name} must be a private Enum');
     }
@@ -318,8 +318,7 @@ class ClassGenerator {
         if (type_processor.hasAnnotation<ObjectClass>(field)) {
           return '${_generateObjectClass(field).accept(DartEmitter())}';
         } else if (type_processor.hasAnnotation<Data>(field)) {
-          if (type_processor.listTypeFieldOf<Data>(field, 'fields')?.isEmpty ??
-              true) {
+          if (type_processor.listTypeFieldOf<Data>(field, 'fields').isEmpty) {
             throw InvalidGenerationSourceError(
                 'Data annotation must contain at least one DataField');
           }
