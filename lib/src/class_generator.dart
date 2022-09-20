@@ -91,7 +91,7 @@ class ClassGenerator {
         p
           ..name = '${getCamelCase(field.name)}'
           ..named = true
-          ..annotations.add(references.required)
+          ..required = true
           ..type = refer(
             '${references.generic_R.symbol} Function('
             '${hasObjectAnnotation ? '' : '${_isNamespaceGeneric ? '$callbackArgType<T>' : callbackArgType}'}'
@@ -120,13 +120,6 @@ class ClassGenerator {
     final List<Parameter> _params = [];
     final StringBuffer _bodyBuffer = StringBuffer();
 
-    _bodyBuffer.write(
-      "assert(() {"
-      "if (orElse == null) {throw 'Missing orElse case';}"
-      "return true;"
-      "}());",
-    );
-
     _bodyBuffer.writeln('switch(this._type){');
 
     for (var field in _fields) {
@@ -135,7 +128,6 @@ class ClassGenerator {
       final DartObject? usedClass =
           type_processor.usedClassFromAnnotation(field);
       _bodyBuffer.writeln('case ${element.name}.${field.name}:');
-      _bodyBuffer.writeln('if (${getCamelCase(field.name)} == null) break;');
       if (usedClass != null) {
         final wrapperName = type_processor.usedWrapperNameFromAnnotation(field);
         _bodyBuffer.writeln('return ${getCamelCase(field.name)}'
@@ -163,7 +155,7 @@ class ClassGenerator {
     _params.add(Parameter((p) => p
       ..name = 'orElse'
       ..named = true
-      ..annotations.add(references.required)
+      ..required = true
       ..type = refer(
         '${references.generic_R.symbol} Function('
         '${_isNamespaceGeneric ? '${element.name.replaceFirst('_', '')}<T>' : element.name.replaceFirst('_', '')}'
@@ -294,7 +286,7 @@ class ClassGenerator {
     final fields = type_processor.listTypeFieldOf<Data>(element, 'fields');
     return fields.map((e) => Parameter((f) {
           if (type_processor.dataFieldRequired(e)) {
-            f.annotations.add(references.required);
+            f.required = true;
           }
           f
             ..name = '${type_processor.dataFieldName(e)}'
@@ -492,7 +484,7 @@ class ClassGenerator {
           ..initializers.add(Code('super(${element.name}.${field.name})'))
           ..optionalParameters.addAll(_classFields.map((e) => Parameter((f) {
                 if (type_processor.dataFieldRequired(e)) {
-                  f.annotations.add(references.required);
+                  f.required = true;
                 }
                 f
                   ..name = 'this.${type_processor.dataFieldName(e)}'
@@ -506,7 +498,7 @@ class ClassGenerator {
           ..docs.addAll(type_processor.docCommentsOf(field))
           ..optionalParameters.addAll(_classFields.map((e) => Parameter((f) {
                 if (type_processor.dataFieldRequired(e)) {
-                  f.annotations.add(references.required);
+                  f.required = true;
                 }
                 f
                   ..name =
@@ -542,7 +534,7 @@ class ClassGenerator {
           ..initializers.add(Code('super($values)'))
           ..optionalParameters.addAll(_classFields.map((e) => Parameter((f) {
                 if (type_processor.dataFieldRequired(e)) {
-                  f.annotations.add(references.required);
+                  f.required = true;
                 }
                 f
                   ..name = 'this.${type_processor.dataFieldName(e)}'

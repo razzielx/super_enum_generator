@@ -6,7 +6,6 @@ const generic_R = Reference('R');
 const generic_R_extends_Object = Reference('R extends Object');
 const immutable = Reference('immutable');
 const protected = Reference('protected');
-const required = Reference('required');
 const override = Reference('override');
 const string = Reference('String');
 const int = Reference('int');
