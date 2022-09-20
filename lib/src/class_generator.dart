@@ -66,16 +66,6 @@ class ClassGenerator {
     final List<Parameter> _params = [];
     final StringBuffer _bodyBuffer = StringBuffer();
 
-    final assertionCondition =
-        _fields.map((f) => '${getCamelCase(f.name)} == null').join(' || ');
-
-    _bodyBuffer.write(
-      "assert(() {"
-      "if ($assertionCondition) {throw 'check for all possible cases';}"
-      "return true;"
-      "}());",
-    );
-
     _bodyBuffer.writeln('switch(this._type){');
 
     for (var field in _fields) {
