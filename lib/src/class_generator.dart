@@ -435,7 +435,7 @@ class ClassGenerator {
         ..annotations.add(references.override)
         ..optionalParameters.addAll(_classFields.map((e) => Parameter((f) => f
           ..name = type_processor.dataFieldName(e)
-          ..type = const Reference('Object')
+          ..type = Reference('Object${type_processor.dataFieldTypeNullable(e)}')
           ..defaultTo = const Code('superEnum')
           ..named = true
           ..build())))
