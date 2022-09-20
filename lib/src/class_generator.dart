@@ -120,13 +120,6 @@ class ClassGenerator {
     final List<Parameter> _params = [];
     final StringBuffer _bodyBuffer = StringBuffer();
 
-    _bodyBuffer.write(
-      "assert(() {"
-      "if (orElse == null) {throw 'Missing orElse case';}"
-      "return true;"
-      "}());",
-    );
-
     _bodyBuffer.writeln('switch(this._type){');
 
     for (var field in _fields) {
@@ -155,7 +148,7 @@ class ClassGenerator {
         ..type = refer(
           '${references.generic_R.symbol} Function('
           '${hasObjectAnnotation ? '' : '${_isNamespaceGeneric ? '$callbackArgType<T>' : callbackArgType}'}'
-          ')',
+          ')?',
         )
         ..build()));
     }
