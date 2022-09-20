@@ -30,7 +30,7 @@ bool isGeneric(Element element) =>
 
 String dataFieldType(DartObject obj) {
   return _genericOf(ConstantReader(obj).objectValue.type!)!
-      .getDisplayString(withNullability: false)
+      .getDisplayString(withNullability: true)
       .replaceAll('Generic', 'T');
 }
 
