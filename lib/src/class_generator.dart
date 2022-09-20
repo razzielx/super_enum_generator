@@ -120,6 +120,13 @@ class ClassGenerator {
     final List<Parameter> _params = [];
     final StringBuffer _bodyBuffer = StringBuffer();
 
+    _bodyBuffer.write(
+      "assert(() {"
+      "if (orElse == null) {throw 'Missing orElse case';}"
+      "return true;"
+      "}());",
+    );
+
     _bodyBuffer.writeln('switch(this._type){');
 
     for (var field in _fields) {
@@ -128,6 +135,7 @@ class ClassGenerator {
       final DartObject? usedClass =
           type_processor.usedClassFromAnnotation(field);
       _bodyBuffer.writeln('case ${element.name}.${field.name}:');
+      _bodyBuffer.writeln('if (${getCamelCase(field.name)} == null) break;');
       if (usedClass != null) {
         final wrapperName = type_processor.usedWrapperNameFromAnnotation(field);
         _bodyBuffer.writeln('return ${getCamelCase(field.name)}'
@@ -223,7 +231,7 @@ class ClassGenerator {
         ..type = refer(
           '${references.ref_void.symbol} Function('
           '${hasObjectAnnotation ? '' : '${_isNamespaceGeneric ? '$callbackArgType<T>' : callbackArgType}'}'
-          ')',
+          ')?',
         )
         ..build()));
     }
